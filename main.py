@@ -6,16 +6,6 @@ from sklearn.metrics import accuracy_score
 df = pd.read_csv("customer_churn.csv")
 
 x=df.drop(["RowNumber","Exited","CustomerId","Surname","Exited"],axis = 1)
-#x["BalancePerProduct"] = (x["Balance"]/x["NumOfProducts"].replace(0,1))
-
-#x["SalaryBalanceRatio"] = (x["EstimatedSalary"]/(x["Balance"]+1))
-
-#x["SeniorCitizen"] = (x["Age"] >= 60).astype(int)
-
-#x["LoyalCustomer"] = (x["Tenure"] >= 5).astype(int)
-
-#x["CreditIncomeRatio"] = (x["CreditScore"] /(x["EstimatedSalary"] + 1))
-
 
 y=df["Exited"]
 
