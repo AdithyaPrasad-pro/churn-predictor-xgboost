@@ -14,7 +14,7 @@ x["SeniorCitizen"] = (x["Age"] >= 60).astype(int)
 
 x["LoyalCustomer"] = (x["Tenure"] >= 5).astype(int)
 
-x["CreditIncomeRatio"] = (x["CreditScore"] /(x["EstimatedSalary"] + 1))
+#x["CreditIncomeRatio"] = (x["CreditScore"] /(x["EstimatedSalary"] + 1))
 
 
 y=df["Exited"]
