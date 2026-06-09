@@ -2,9 +2,7 @@
 
 ## About
 
-This project predicts whether a customer is likely to leave a bank based on their personal and account information. I built this project to understand how XGBoost works and to learn the importance of feature engineering before training a machine learning model.
-
-Instead of directly training the model, I first analyzed the dataset, removed unnecessary columns, handled categorical variables using One-Hot Encoding, and then trained an XGBoost classifier to make predictions.
+This project predicts whether a bank customer is likely to leave the bank based on customer information such as age, credit score, balance, tenure, salary, and account details. The goal of this project was not only to build a machine learning model but also to understand the complete workflow involved in solving a real-world classification problem.
 
 ---
 
@@ -17,9 +15,9 @@ Instead of directly training the model, I first analyzed the dataset, removed un
 
 ---
 
-## Dataset Features
+## Dataset
 
-The model uses customer information such as:
+The dataset contains customer information including:
 
 * Credit Score
 * Geography
@@ -28,57 +26,62 @@ The model uses customer information such as:
 * Tenure
 * Balance
 * Number of Products
-* Credit Card Status
+* Has Credit Card
 * Active Member Status
 * Estimated Salary
 
-The target variable is:
+Target Variable:
 
-* **Exited = 0** → Customer Stayed
-* **Exited = 1** → Customer Churned
+* **0 → Customer Stays**
+* **1 → Customer Churns**
 
 ---
 
-## Project Workflow
+## Workflow
 
-```text
+```
 Load Dataset
-      ↓
-Analyze Features
-      ↓
+        ↓
+Data Preprocessing
+        ↓
 Remove Unnecessary Columns
-      ↓
-One-Hot Encode Categorical Data
-      ↓
+        ↓
+One-Hot Encoding
+        ↓
 Train-Test Split
-      ↓
-Train XGBoost Model
-      ↓
+        ↓
+Train XGBoost Classifier
+        ↓
 Evaluate Accuracy
-      ↓
-Interactive Customer Prediction
+        ↓
+Interactive Prediction
 ```
 
 ---
 
 ## Experimentation
 
-While building this project, I learned that machine learning is not only about choosing an algorithm. Preparing the data correctly is equally important.
+This project involved several experiments rather than simply training a model.
 
-Some of the experiments and decisions included:
+I explored feature engineering by creating additional features such as:
 
-* Removing columns like `CustomerId` and `Surname` since they do not help prediction.
-* Learning why categorical variables cannot be directly used by the model.
-* Applying One-Hot Encoding for `Geography` and `Gender`.
-* Understanding why this is a **classification** problem and why **Accuracy Score** is the appropriate evaluation metric.
+* Balance Per Product
+* Salary to Balance Ratio
+* Senior Citizen Indicator
+* Loyal Customer Indicator
+* Credit Income Ratio
+
+After testing different combinations, I found that these engineered features did not improve the model's performance. The original feature set achieved the best accuracy, so it was retained for the final implementation.
+
+This experience taught me that feature engineering should always be validated through experimentation and that adding more features does not necessarily produce a better model.
 
 ---
 
 ## Features
 
 * Customer churn prediction
-* Data preprocessing and feature engineering
-* One-Hot Encoding of categorical variables
+* Data preprocessing
+* One-Hot Encoding for categorical variables
 * XGBoost classification model
 * Interactive prediction using user input
 * Accuracy evaluation
@@ -90,20 +93,20 @@ Some of the experiments and decisions included:
 Through this project, I learned:
 
 * The difference between classification and regression problems
-* Why feature engineering is important
-* How One-Hot Encoding works
-* Why XGBoost is a powerful algorithm for structured data
-* The importance of understanding the data before training a model
+* Why One-Hot Encoding is required for categorical data
+* How XGBoost works for structured datasets
+* The importance of experimentation in machine learning
+* That feature engineering is hypothesis-driven and should always be evaluated using model performance
 
 ---
 
 ## Future Improvements
 
-* Perform hyperparameter tuning
-* Apply Cross Validation
-* Compare XGBoost with Random Forest and Logistic Regression
-* Build a web application for customer churn prediction
-* Deploy the model online
+* Hyperparameter tuning
+* Cross Validation
+* Feature Importance Analysis
+* Model comparison with other algorithms
+* Deployment as a web application
 
 ---
 
