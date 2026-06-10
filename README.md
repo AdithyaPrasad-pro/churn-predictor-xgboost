@@ -59,21 +59,6 @@ Interactive Prediction
 
 ---
 
-## Experimentation
-
-This project involved several experiments rather than simply training a model.
-
-I explored feature engineering by creating additional features such as:
-
-* Balance Per Product
-* Salary to Balance Ratio
-* Senior Citizen Indicator
-* Loyal Customer Indicator
-* Credit Income Ratio
-
-After testing different combinations, I found that these engineered features did not improve the model's performance. The original feature set achieved the best accuracy, so it was retained for the final implementation.
-
-This experience taught me that feature engineering should always be validated through experimentation and that adding more features does not necessarily produce a better model.
 
 ---
 
@@ -110,6 +95,43 @@ Through this project, I learned:
 
 ---
 
+## Experimentation & Model Improvement
+
+This project was built through multiple iterations rather than a single implementation. Instead of stopping after training an XGBoost classifier, I experimented with different techniques to improve both the model and my understanding of machine learning.
+
+### Feature Engineering
+
+I created and tested several engineered features, including:
+
+* Balance Per Product
+* Salary to Balance Ratio
+* Senior Citizen Indicator
+* Loyal Customer Indicator
+* Credit Income Ratio
+
+After evaluating different combinations, I found that these additional features did not improve the model's performance. The original feature set produced better results, so it was retained for the final model. This experiment reinforced the importance of validating ideas with data rather than assumptions.
+
+### Cross Validation
+
+To obtain a more reliable estimate of model performance, I evaluated the model using **5-Fold Cross Validation** instead of relying solely on a single train-test split. This helped measure how well the model generalizes across different data splits.
+
+### Hyperparameter Tuning
+
+I used **GridSearchCV** to automatically search for the best XGBoost hyperparameters instead of selecting them manually. The search identified the optimal combination of parameters that achieved the best cross-validation performance.
+
+### Feature Importance
+
+Using XGBoost's built-in feature importance analysis, I identified which features contributed the most to the model's decisions. The analysis showed that variables such as **Age**, **Balance**, and **Credit Score** played significant roles, while features like **Has Credit Card** had comparatively little impact.
+
+### Explainable AI with SHAP
+
+To better understand the model's predictions, I implemented **SHAP (SHapley Additive exPlanations)**. SHAP provides visual explanations showing how each feature influences the prediction for both the overall model and individual customers. This made the model more interpretable rather than functioning as a black box.
+
+### Key Learning
+
+This project taught me that machine learning is not simply about training a model. It involves experimentation, evaluation, optimization, and explainability. Building and improving the model through multiple iterations provided a much deeper understanding of the complete machine learning workflow.
+
+
 ## Author
 
-**Adithya Prasad**
+Adithya Prasad
