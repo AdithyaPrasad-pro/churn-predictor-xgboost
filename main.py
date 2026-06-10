@@ -6,6 +6,9 @@ from sklearn.metrics import accuracy_score
 from xgboost import plot_importance
 import matplotlib.pyplot as plt
 
+import shap
+
+
 
 df = pd.read_csv("customer_churn.csv")
 
@@ -41,6 +44,12 @@ scores = cross_val_score(grid.best_estimator_,x,y,cv=5,scoring="accuracy")
 
 best_model = grid.best_estimator_
 best_model.fit(x,y)
+explainer = shap.TreeExplainer(best_model)
+
+shap_values = explainer .shap_values(x)
+
+shap.summary_plot(shap_values,x)
+
 
 plot_importance(best_model)
 plt.show()
@@ -48,7 +57,7 @@ plt.show()
 importance = best_model.feature_importances_
 for feature, score in zip(x.columns, importance):
     print(f"{feature}: {score:.4f}")
-    
+
 
 
 
