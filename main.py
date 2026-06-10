@@ -1,5 +1,6 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
 
@@ -11,22 +12,22 @@ y=df["Exited"]
 
 x = pd.get_dummies(x,columns=["Geography","Gender"],drop_first=True)
 
-x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
-
-
 model = XGBClassifier(random_state=42)
 
-model.fit(x_train,y_train)
+scores = cross_val_score(model,x,y,cv=5,scoring="accuracy")
 
-y_pred = model.predict(x_test)
 
-accuracy= accuracy_score(y_test,y_pred)
+model.fit(x,y)
 
-print(f"Model Accuracy: {accuracy*100:.2f}%")
+print("Cross Validation Scores:")
+print(scores)
+print()
+print(f"Average Accuracy: {scores.mean()*100:.2f}%")
 
-print("\nEnter Customer Details")
 
 creditscore =int(input("Credit Score: "))
+geography = input("Geography (France/Germany/Spain): ").strip().lower()
+gender =input("Gender (Male/Female): ").strip().lower()
 age =int(input("Age: "))
 tenure= int(input("Tenure: "))
 balance= float(input("Balance: "))
@@ -35,8 +36,6 @@ has_card =int(input("Has Credit Card (1=Yes,0=No): "))
 active =int(input("Is Active Member (1=Yes,0=No): "))
 salary =float(input("Estimated Salary: "))
 
-geography = input("Geography (France/Germany/Spain): ").strip().lower()
-gender =input("Gender (Male/Female): ").strip().lower()
 
 geo_germany= 1 if geography == "germany" else 0
 geo_spain =1 if geography == "spain" else 0
