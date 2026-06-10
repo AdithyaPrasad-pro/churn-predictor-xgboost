@@ -3,6 +3,9 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import GridSearchCV
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
+from xgboost import plot_importance
+import matplotlib.pyplot as plt
+
 
 df = pd.read_csv("customer_churn.csv")
 
@@ -38,6 +41,16 @@ scores = cross_val_score(grid.best_estimator_,x,y,cv=5,scoring="accuracy")
 
 best_model = grid.best_estimator_
 best_model.fit(x,y)
+
+plot_importance(best_model)
+plt.show()
+
+importance = best_model.feature_importances_
+for feature, score in zip(x.columns, importance):
+    print(f"{feature}: {score:.4f}")
+    
+
+
 
 
 print("Cross Validation Scores:")
