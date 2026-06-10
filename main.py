@@ -1,23 +1,44 @@
 import pandas as pd
 from sklearn.model_selection import cross_val_score
-
+from sklearn.model_selection import GridSearchCV
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
 
 df = pd.read_csv("customer_churn.csv")
 
-x=df.drop(["RowNumber","Exited","CustomerId","Surname","Exited"],axis = 1)
+x=df.drop(["RowNumber","CustomerId","Surname","Exited"],axis = 1)
 
 y=df["Exited"]
 
 x = pd.get_dummies(x,columns=["Geography","Gender"],drop_first=True)
 
 model = XGBClassifier(random_state=42)
+param_grid = {
+    "max_depth":[3,5,7],
+    "learning_rate":[0.01,0.1,0.02],
+    "n_estimators":[100,200]
+}
 
-scores = cross_val_score(model,x,y,cv=5,scoring="accuracy")
+grid = GridSearchCV(estimator=model,
+                    param_grid=param_grid,
+                    cv = 5,
+                    scoring="accuracy",
+                    n_jobs=-1)
+
+grid.fit(x,y)
+print("Best Parameters: ")
+print(grid.best_params_)
+print()
+print("Best Accuracy: ")
+print(grid.best_score_)
 
 
-model.fit(x,y)
+scores = cross_val_score(grid.best_estimator_,x,y,cv=5,scoring="accuracy")
+
+
+best_model = grid.best_estimator_
+best_model.fit(x,y)
+
 
 print("Cross Validation Scores:")
 print(scores)
@@ -56,7 +77,7 @@ user_data = pd.DataFrame([{
     "Gender_Male": gender_male
 }])
 
-prediction = model.predict(user_data)
+prediction = best_model.predict(user_data)
 
 if prediction[0] == 1:
     print("\nPrediction: Customer is likely to Churn")
